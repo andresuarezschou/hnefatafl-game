@@ -138,17 +138,22 @@ const initializeBoard = (): PieceType[] => {
   
   const renderPiece = (piece: PieceType) => {
     if (!piece) return null;
-    const textVariant = '\uFE0E';
 
-    switch (piece) {
-      case 'K':
-        return <span className="text-3xl text-amber-400 drop-shadow-[0_2px_3px_rgba(0,0,0,0.8)] cursor-pointer">{`♔${textVariant}`}</span>;
-      case 'D':
-        return <span className="text-3xl text-stone-100 drop-shadow-[0_2px_2px_rgba(0,0,0,0.6)] cursor-pointer">{`♙${textVariant}`}</span>;
-      case 'A':
-        return <span className="text-3xl text-slate-300 drop-shadow-[0_1px_1px_rgba(255,255,255,0.4)] cursor-pointer">{`♟${textVariant}`}</span>;
-    }
+   const pieceAssets: Record<NonNullable<PieceType>, string> = {
+    K: '/King_african_aoe2DE.webp',       
+    D: '/Scn_03_hastings_normal.webp',   
+    A: '/Scn_11_york_normal.webp'    
   };
+
+
+  return (
+    <img 
+      src={pieceAssets[piece]} 
+      alt={piece === 'K' ? 'King' : piece === 'D' ? 'Defender' : 'Attacker'} 
+      className="w-4/5 h-4/5 object-contain transition-transform duration-200 pointer-events-none"
+    />
+  );
+}; 
 
   const validMoves = selectedIdx !== null ? getValidMoves(selectedIdx) : [];
 
